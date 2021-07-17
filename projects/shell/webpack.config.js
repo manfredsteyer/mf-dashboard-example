@@ -18,7 +18,7 @@ module.exports = {
   },
   optimization: {
     runtimeChunk: false
-  },    
+  },
   resolve: {
     alias: {
       ...sharedMappings.getAliases(),
@@ -26,7 +26,15 @@ module.exports = {
   },
   plugins: [
     new DashboardPlugin({
+      publishVersion:"1.0.0",
       dashboardURL: "http://localhost:3001/api/update",
+      metadata: {
+        baseUrl: "http://localhost:3002",
+        source: {
+          url: "https://github.com/module-federation/federation-dashboard/tree/master/dashboard-example/dsl",
+        },
+        remote: "http://localhost:3002/remoteEntry.js",
+      },
     }),
     new ModuleFederationPlugin({
       name: "shell",
@@ -39,8 +47,8 @@ module.exports = {
         "@angular/core": { singleton: true, strictVersion: true, requiredVersion: 'auto' },
         "@angular/common": { singleton: true, strictVersion: true, requiredVersion: 'auto' },
         "@angular/router": { singleton: true, strictVersion: true, requiredVersion: 'auto' },
-        "@angular/common/http": { singleton: true, strictVersion: true, requiredVersion: 'auto' }, 
-        "@angular/material/snack-bar": { singleton: true, strictVersion: true, requiredVersion:'auto' }, 
+        "@angular/common/http": { singleton: true, strictVersion: true, requiredVersion: 'auto' },
+        "@angular/material/snack-bar": { singleton: true, strictVersion: true, requiredVersion:'auto' },
 
         // Uncomment for sharing lib of an Angular CLI or Nx workspace
         ...sharedMappings.getDescriptors()
